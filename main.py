@@ -2,8 +2,8 @@ from app import app, DEBUG
 from utils import classify, OCR
 from flask import Flask, jsonify, request
 
-#   En servidor:5001/summ esta app recibe los POST con los textos para procesar
-@app.route('/summ', methods=['POST'])
+#   En servidor:5001/classify esta app recibe los POST con los textos para procesar
+@app.route('/classify', methods=['POST'])
 def submit():
     #   request contiene la informacion entregada en la request
     file = request.files['file']
