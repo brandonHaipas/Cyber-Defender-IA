@@ -1,0 +1,46 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CyberDefender</title>
+    <!-- Una fuente de Google -->
+    <link href='https://fonts.googleapis.com/css?family=Roboto Condensed' rel='stylesheet'>
+    <!-- Cargamos el CSS que haremos para este sitio -->
+    <link href="{{ url_for('static' , filename='css/index.css') }}" rel="stylesheet" type="text/css"/>
+</head>
+
+
+<div id="clf-container">
+    <h1>CyberDefender</h1>
+    <div>
+        Aplicación de ejemplo de CyberDefender. Se recibe un pantallazo de un chat y el modelo detecta si es una caso de cyberbullying o no.
+    </div>
+    <form action="/" class="form-classifier" enctype="multipart/form-data" method="post">
+        <input autocomplete="off" name="file" required type="file">
+        <button class="hvr-grow-shadow" type="submit">Enviar</button>
+    </form>
+    {% if filename %}
+    {% if result['predicted_label'] is not none %}
+    <div class="response response-ok" style="padding: 5px 30px;">
+        <h2>Clases predicha:</h2>
+    	<ul style="text-align: left;">
+            {{ result['predicted_label'] }}
+    	</ul>
+    </div>
+    {% else %}
+    <div class="response response-error">
+        Error de predicción. No se encontró ninguna clase.
+        {% if error %}
+        <div>Detalle del error: {{error}}</div>
+        {% endif %}
+    </div>
+    {% endif %}
+    <img alt="Uploaded image" class="uploaded-image" src="{{ url_for('display_image' , filename=filename) }}">
+    {% endif %}
+    {% if not filename and error %}
+    <div class="response response-ok">
+        Error: {{error}}
+    </div>
+    {% endif %}
+</div>
+</body>
+</html>
