@@ -161,4 +161,4 @@ cython_debug/
 
 # specific for this repository
 
-./app-web/uploads/
+app-web/uploads/
